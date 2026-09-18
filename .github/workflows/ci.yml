@@ -1,0 +1,24 @@
+name: IoT Telemetry CI
+
+on: [push, pull_request]
+
+jobs:
+  validate-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Run Core Ingestion & Anomaly Unit Test
+        run: node engine.js
+
+      - name: Build and Validate Docker Composition
+        run: |
+          docker compose config
+          docker compose build
+          docker compose up --abort-on-container-exit
+          docker compose down

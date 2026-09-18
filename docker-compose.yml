@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  telemetry-node-a:
+    build: .
+    container_name: telemetry-node-a
+    restart: "no"
+
+  telemetry-node-b:
+    build: .
+    container_name: telemetry-node-b
+    restart: "no"
